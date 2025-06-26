@@ -10,6 +10,11 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    
+    Player.containers = (updatable, drawable)
+    
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
@@ -23,8 +28,10 @@ def main():
             
         screen.fill("black")
         
-        player.update(dt)
-        player.draw(screen)
+        for sprite in updatable:
+            sprite.update(dt)
+        for sprite in drawable:
+            sprite.draw(screen)
         
         pygame.display.flip()
         dt = clock.tick(60) / 1000
